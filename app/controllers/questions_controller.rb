@@ -1,14 +1,15 @@
 class QuestionsController < ApplicationController
-
   before_action :set_question!, only: %i[show destroy edit update]
+
   def show
     @answer = @question.answers.build
-    @answers = Answer.order created_at: :desc
+    # @answers = Answer.where(question: @question).order created_at: :desc
+    @answers = @question.answers.order created_at: :desc
   end
 
   def destroy
     @question.destroy
-    flash[:success]= "Question deleted"
+    flash[:success] = "Question deleted!"
     redirect_to questions_path
   end
 
@@ -17,10 +18,10 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update question_params
-      flash[:success]= "Question updated"
+      flash[:success] = "Question updated!"
       redirect_to questions_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
@@ -35,10 +36,10 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new question_params
     if @question.save
-      flash[:success]= "Question created"
+      flash[:success] = "Question created!"
       redirect_to questions_path
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -51,5 +52,4 @@ class QuestionsController < ApplicationController
   def set_question!
     @question = Question.find params[:id]
   end
-
 end
