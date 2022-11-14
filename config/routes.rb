@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   resources :questions do
-    resources :answers, only: %i[create destroy]
-  end
-
+  resources :answers, except: %i[new show]
+end
   root 'pages#index'
 
 end
