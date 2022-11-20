@@ -3,8 +3,10 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.build
+
     # @answers = Answer.where(question: @question).order created_at: :desc
     @answers = @question.answers.order created_at: :desc
+
   end
 
   def destroy

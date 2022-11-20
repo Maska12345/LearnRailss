@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_question!
+
   before_action :set_answer!, except: :create
 
   def update
@@ -13,6 +14,7 @@ class AnswersController < ApplicationController
   def edit
 
   end
+
   def create
     @answer = @question.answers.build answer_params
 
@@ -20,13 +22,17 @@ class AnswersController < ApplicationController
       flash[:success] = "Answer created"
       redirect_to question_path(@question)
     else
+
       @answers = @question.answers.order created_at: :desc
+
       render 'questions/show'
     end
   end
 
   def destroy
+
     @answer.destroy
+
     flash[:success] = "Answer deleted"
     redirect_to question_path(@question)
   end
@@ -44,4 +50,5 @@ class AnswersController < ApplicationController
   def set_answer!
     @answer = @question.answers.find params[:id]
   end
+
 end
